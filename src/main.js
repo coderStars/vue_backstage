@@ -14,7 +14,6 @@ import '@/assets/fontawesome/css/font-awesome.min.css'
 import './mock'
 
 import trademark from '@/api/product/trademark.js'
-console.log(trademark.getTrademarkListAll());
 
 Vue.component('v-chart', ECharts)
 

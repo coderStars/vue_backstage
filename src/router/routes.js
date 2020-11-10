@@ -12,11 +12,6 @@ export default [
     hidden: true
   },
   {
-    path: '/404',
-    component: () => import('@/views/other/404'),
-    hidden: true
-  },
-  {
     path: '/',
     component: Layout,
     title: '首页',
@@ -51,18 +46,5 @@ export default [
     icon: 'common',
     title: '常用操作',
     children: common
-  },
-  {
-    path: '/user',
-    component: Layout,
-    icon: 'user',
-    title: '用户管理',
-    children: user,
-    hidden: true
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
   }
 ]
