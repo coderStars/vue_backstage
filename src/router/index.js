@@ -13,23 +13,23 @@ const router = new Router({
 const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
-  const token = getToken()
+  // const token = getToken()
 
-  if (token) {
-    store.dispatch('user/getUserInfo')
-    next()
-  } else {
-    if (whiteList.includes(to.path)) {
-      next()
-    } else {
-      next(`/login?redirect=${to.path}`)
-    }
-  }
+  // if (token) {
+  //   store.dispatch('user/getUserInfo')
+  //   next()
+  // } else {
+  //   if (whiteList.includes(to.path)) {
+  //     next()
+  //   } else {
+  //     next(`/login?redirect=${to.path}`)
+  //   }
+  // }
 
   next()
 })
 
-router.afterEach(to => {
-})
+// router.afterEach(to => {
+// })
 
 export default router

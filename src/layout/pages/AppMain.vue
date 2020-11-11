@@ -20,5 +20,6 @@ export default {
   background:#f5f5f5;
   min-height:calc(100vh - 61px);
   overflow:hidden;
+  padding: 20px;
 }
 </style>

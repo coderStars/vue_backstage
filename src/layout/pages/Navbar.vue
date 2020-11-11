@@ -8,7 +8,7 @@
       <el-menu :default-active="activeIndex" class="app-menu" mode="horizontal" router @select="handleSelect">
         <template v-for="(nav, navIndex) in header">
           <!--<pre style="line-height:20px;">{{header}}</pre>-->
-          <el-menu-item v-if="!nav.children" :key="nav.key" :path="nav.path" :index="navIndex">{{ nav.title }}</el-menu-item>
+          <el-menu-item :popper-append-to-body="false" v-if="!nav.children" :key="nav.key" :path="nav.path" :index="navIndex">{{ nav.title }}</el-menu-item>
           <nav-sub v-else :key="nav.key" :nav="nav" />
         </template>
       </el-menu>
