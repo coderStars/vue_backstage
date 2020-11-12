@@ -1,6 +1,6 @@
 <template>
   <el-card class="box-card" style="margin: 20px;">
-    <el-form :inline="true" :model="cform" class="categoryList" style="font-size: 14px;color: #606266;">
+    <el-form :inline="true" :model="cform" class="categoryList" style="font-size: 14px;color: #606266;" :disabled="!isShowList">
       <el-form-item label="一级分类">
         <el-select v-model="cform.category1Id" placeholder="请选择" @change="handlerCategory1">
           <el-option :label="c1.name" :value="c1.id" v-for="(c1,index) in category1List" :key="c1.id"></el-option>
@@ -24,6 +24,7 @@
 import category  from '@/api/category/index.js'
 export default {
   name: "CategorySelector",
+  props:['isShowList'],
   data(){
     return {
       cform:{

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CategorySelector @handlerCategory="handlerCategory"></CategorySelector>
+    <CategorySelector @handlerCategory="handlerCategory" :isShowList="isShowList"></CategorySelector>
     <el-card style="margin: 0 20px">
       <!-- 列表数据展示的内容 -->
       <div v-show="isShowList">
