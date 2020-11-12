@@ -58,7 +58,7 @@
           </el-form-item>
         </el-form>
 
-        <el-button type="primary" ic on="el-icon-plus" @click="addAttrValue">添加属性值</el-button>
+        <el-button type="primary" ic on="el-icon-plus" @click="addAttrValue" :disabled="!attr.attrName">添加属性值</el-button>
         <el-button @click="isShowList = true" >取消</el-button>
 
         <el-table
@@ -86,8 +86,10 @@
             <template slot-scope="{row,$index}">
               <el-popconfirm
                 :title="`确定删除${row.valueName}吗？`"
-                @onConfirm="attr.attrValueList.splice($index,1)"
+                @onConfirm="deleteAttr(row)"
               >
+              <!-- @onConfirm="attr.attrValueList.splice($index, 1)" -->
+              <!-- @onConfirm="console.log(1)" -->
                 <el-button
                   slot="reference"
                   type="danger"
@@ -99,7 +101,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-button type="primary" @click="save">保存</el-button>
+        <el-button type="primary" @click="save" :disabled="attr.attrValueList.length===0">保存</el-button>
         <el-button @click="isShowList = true">取消</el-button>
       </div>
     </el-card>
@@ -109,7 +111,7 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep'
 import CategorySelector from "@/components/CategorySelector";
-import attr from "@/api/product/attr.js";
+import attrAPI from "@/api/product/attr.js";
 export default {
   name: "Attr",
   components: {
@@ -133,6 +135,16 @@ export default {
     };
   },
   methods: {
+    async eleteAttr(row){
+      const result = await attrAPI.delete(row.id)
+      if(result.code === 200){
+        this.$message.success('删除属性成功')
+        this.getAttrList()
+      }else{
+        this.$message.error('删除属性失败')
+      }
+    },
+
     async save(){
       let attr = this.attr
 
@@ -145,10 +157,13 @@ export default {
 
       if(attr.attrValueList.length === 0) return 
 
-      const result = await attr.addOrUpdate(attr)
+      const result = await attrAPI.addOrUpdate(attr)
       if(result.code === 200){
         this.$message.success('保存属性成功')
-
+        this.isShowList = true
+        this.getAttrList()
+      }else{
+        this.$message.error('保存属性失败')
       }
     },
 
@@ -233,7 +248,7 @@ export default {
 
     async getAttrList() {
       let { category1Id, category2Id, category3Id } = this;
-      const result = await attr.getList(category1Id, category2Id, category3Id);
+      const result = await attrAPI.getList(category1Id, category2Id, category3Id);
       if (result.code === 200) {
         this.attrList = result.data;
       }
