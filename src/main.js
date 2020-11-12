@@ -15,6 +15,10 @@ import './mock'
 
 import trademark from '@/api/product/trademark.js'
 
+import HintButton from '@/components/HintButton'
+Vue.component('HintButton',HintButton)
+  
+
 Vue.component('v-chart', ECharts)
 
 Vue.use(VueAxios, axios)

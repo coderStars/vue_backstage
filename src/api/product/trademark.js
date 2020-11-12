@@ -7,3 +7,4 @@ export default {
     return request.get('/admin/product/baseTrademark/getTrademarkList')
   }
 }
+
