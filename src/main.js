@@ -9,16 +9,18 @@ import ECharts from 'vue-echarts'
 import 'moment/locale/zh-cn'
 import '@/components'
 import '@/plugins/element.js'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/common.scss'
 import '@/assets/fontawesome/css/font-awesome.min.css'
 import './mock'
 
-import trademark from '@/api/product/trademark.js'
-console.log(trademark.getTrademarkListAll());
+// import trademark from '@/api/product/trademark.js'
+// console.log(trademark.getTrademarkListAll());
 
 Vue.component('v-chart', ECharts)
 
 Vue.use(VueAxios, axios)
+
 
 moment.locale('zh-cn')
 

@@ -5,12 +5,23 @@
         <img class="wyan-logo" :src="require('@/assets/images/wyan-logo.png')" :alt="App.title">
         {{ App.title }}
       </router-link>
-      <el-menu :default-active="activeIndex" class="app-menu" mode="horizontal" router @select="handleSelect">
+      <el-menu  :default-active="activeIndex" class="app-menu" mode="horizontal" router @select="handleSelect">
         <template v-for="(nav, navIndex) in header">
-          <!--<pre style="line-height:20px;">{{header}}</pre>-->
-          <el-menu-item v-if="!nav.children" :key="nav.key" :path="nav.path" :index="navIndex">{{ nav.title }}</el-menu-item>
-          <nav-sub v-else :key="nav.key" :nav="nav" />
+          <!-- <template slot="title">{{nav.title}}</template> -->
+          <nav-sub :key="nav.key" :nav="nav" />
+          <!-- <el-menu-item :key="nav.key" :path="nav.path" router @select="handleSelect">
+            <el-submenu :index="navIndex+''">
+              <template slot="title">{{nav.title}}</template>
+              <template v-for="(item, index) in nav.children">
+                <el-menu-item :index="`(navIndex-${index}) + ''`" :path='item.path' router @select="handleSelect">{{item.title}}</el-menu-item>
+              </template>
+              
+            </el-submenu>
+
+
+          </el-menu-item> -->
         </template>
+      
       </el-menu>
 
       <div class="helper-menu">

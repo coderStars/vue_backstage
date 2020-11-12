@@ -12,7 +12,7 @@ function resolve (dir) {
 module.exports = {
   publicPath: isProd ? baseUrl : '/',
   productionSourceMap: false,
-  lintOnSave: !isProd,
+  lintOnSave: false,
 
   // 开启gzip 压缩
   configureWebpack: config => {
