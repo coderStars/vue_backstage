@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import CategorySelector from "@/components/CategorySelector";
+import CategorySelector from "@/components/CategorySelector1";
 import SpuForm from "../components/spuForm";
 import SkuForm from "../components/skuForm";
 import spu from "@/api/product/spu";

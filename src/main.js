@@ -9,6 +9,7 @@ import ECharts from 'vue-echarts'
 import 'moment/locale/zh-cn'
 import '@/components'
 import '@/plugins/element.js'
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/common.scss'
 import '@/assets/fontawesome/css/font-awesome.min.css'
 
@@ -20,6 +21,7 @@ Vue.component('v-chart', ECharts)
 Vue.component('HintButton', HintButton)
 
 Vue.use(VueAxios, axios)
+
 
 moment.locale('zh-cn')
 
