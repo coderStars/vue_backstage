@@ -11,11 +11,13 @@ import '@/components'
 import '@/plugins/element.js'
 import '@/styles/common.scss'
 import '@/assets/fontawesome/css/font-awesome.min.css'
-import './mock'
 
-import trademark from '@/api/product/trademark.js'
+
+import HintButton from '@/components/HintButton'
+
 
 Vue.component('v-chart', ECharts)
+Vue.component('HintButton', HintButton)
 
 Vue.use(VueAxios, axios)
 

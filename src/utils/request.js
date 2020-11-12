@@ -29,8 +29,8 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   response => {
-
     const result = response.data
+
     /* 
     code为非20000或200是抛错 可结合自己业务进行修改
     */

@@ -1,12 +1,10 @@
 <template>
-  <div>
-    平台属性管理
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "Attr"
+  name: "SkuForm"
 }
 </script>
 

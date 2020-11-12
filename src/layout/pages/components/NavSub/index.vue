@@ -1,5 +1,5 @@
 <template>
-  <el-submenu :index="nav.path">
+  <el-submenu :index="nav.path" :popper-append-to-body="false">
     <template slot="title">
       <span slot="title">{{ nav.title }}</span>
     </template>

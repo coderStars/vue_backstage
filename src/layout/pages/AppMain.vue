@@ -14,10 +14,11 @@ export default {
 
 <style lang="scss">
 .app-main{
+
   flex:1;
   min-height:100%;
   transition:all .28s ease-out;
-  background:#f5f5f5;
+  background:#fff;
   min-height:calc(100vh - 61px);
   overflow:hidden;
 }

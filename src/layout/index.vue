@@ -13,6 +13,7 @@ import { AppMain, Navbar, AppSettings, Sidebar } from './pages'
 // import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
+
 export default {
   name: 'Layout',
   components: {
