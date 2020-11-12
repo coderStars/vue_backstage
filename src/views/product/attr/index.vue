@@ -76,23 +76,30 @@
             label="属性值名称"
             width="width">
             <template slot-scope="{row,$index}">
-              <el-input v-model="row.valueName" placeholder="请输入属性值" size="mini"></el-input>
+              <el-input :ref="$index" v-if="row.isEdit" v-model="row.valueName" placeholder="请输入属性值" size="mini" @blur="toLook(row)" @keyup.enter.native="toLook(row)"></el-input>
+              <span v-else @click="toEdit(row,$index)" style="display:block;">{{row.valueName}}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="操作"
             width="width">
             <template slot-scope="{row,$index}">
-              <el-button
-                type="danger"
-                icon="el-icon-delete"
-                title="删除属性值"
-                size="mini"
-              ></el-button>
+              <el-popconfirm
+                :title="`确定删除${row.valueName}吗？`"
+                @onConfirm="attr.attrValueList.splice($index,1)"
+              >
+                <el-button
+                  slot="reference"
+                  type="danger"
+                  icon="el-icon-delete"
+                  title="删除属性值"
+                  size="mini"
+                ></el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
-        <el-button type="primary">保存</el-button>
+        <el-button type="primary" @click="save">保存</el-button>
         <el-button @click="isShowList = true">取消</el-button>
       </div>
     </el-card>
@@ -126,13 +133,67 @@ export default {
     };
   },
   methods: {
+    async save(){
+      let attr = this.attr
+
+      attr.attrValueList = attr.attrValueList.filter(item => {
+        if(item.valueName !== ''){
+          delete item.isEdit
+          return true
+        }
+      })
+
+      if(attr.attrValueList.length === 0) return 
+
+      const result = await attr.addOrUpdate(attr)
+      if(result.code === 200){
+        this.$message.success('保存属性成功')
+
+      }
+    },
+
+    // input失去焦点或者回车之后变为查看模式
+    toLook(row){
+      if(row.valueName.trim() === ''){
+        this.$message.error('输入的数据不能为空')
+        return
+      }
+
+      let isRepeat = this.attr.attrValueList.some(item => {
+        if(item !== row){
+          return item.valueName === row.valueName
+        }
+      })
+      if(isRepeat){
+        this.$message.error('输入的数据不能重复')
+        row.valueName = ''
+        return 
+      }
+      row.isEdit = false
+    },
+
+    // 点击span，变为编辑模式
+    toEdit(attrValue,index){
+      attrValue.isEdit = true
+
+      // 让对应的input自动获取到焦点
+      this.$nextTick(() => {
+        this.$refs[index].focus()
+      })
+    },
+
     // addAttrValue点击添加属性的回调
     addAttrValue(){
       this.attr.attrValueList.push({
         // 收集属性值的时候，我们做法是现在属性值列表当中
         attrId: this.attr.id || undefined,
         id: 0,
-        valueName: "",        
+        valueName: "",       
+        isEdit: true,
+      })
+
+      this.$nextTick(() => {
+        this.$refs[this.attr.attrValueList.length-1].focus()
       })
     },
 
@@ -143,14 +204,21 @@ export default {
         attrName: '',
         categoryLevel: 3,
         attrValueList: [],
-        categoryId: 0,
+        categoryId: this.category3Id,     // 收集categoryId 不能在data当中去写
       }
     },
+
     showUpdateDiv(row){
       this.isShowList = false
-      this.attr = {...row}
-      // this.attr = cloneDeep(row)
+      // this.attr = {...row}
+      this.attr = cloneDeep(row)
+
+      this.attr.attrValueList.forEach(item => {
+        // item.isEdit = false     // 不是响应式属性
+        this.$set(item, 'isEdit', false)
+      })
     },
+
     handlerCategory({ categoryId, level }) {
       if (level === 1) {
         this.category1Id = categoryId;
