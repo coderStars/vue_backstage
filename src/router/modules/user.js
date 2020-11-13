@@ -2,7 +2,7 @@ const pre = '/system/'
 
 export default [
   {
-    path: `${pre}index`,
+    path: `${pre}user`,
     name: 'product',
     title: '用户管理',
     component: () => import('@/views/user'),

@@ -6,6 +6,26 @@ import store from '@/store'
 
 Vue.use(Router)
 
+const originPush = Router.prototype.push
+const originReplace = Router.prototype.replace
+
+Router.prototype.push = function(location,onResolved,onRejected){
+  if(onResolved === undefined && onRejected === undefined){
+    //代表没有传递处理的回调无论是成功还是失败
+    return originPush.call(this,location).catch(() => {})
+  }else{
+    return originPush.call(this,location,onResolved,onRejected)
+  }
+}
+Router.prototype.replace = function(location,onResolved,onRejected){
+  if(onResolved === undefined && onRejected === undefined){
+    //代表没有传递处理的回调无论是成功还是失败
+    return originReplace.call(this,location).catch(() => {})
+  }else{
+    return originReplace.call(this,location,onResolved,onRejected)
+  }
+}
+
 const router = new Router({
   routes
 })
@@ -32,5 +52,7 @@ router.beforeEach((to, from, next) => {
 
 // router.afterEach(to => {
 // })
+
+
 
 export default router
