@@ -38,17 +38,23 @@
                 size="mini"
                 @click="showUpdateDiv(row)"
               ></el-button> 
-              <el-button
-                type="danger"
-                icon="el-icon-delete"
-                title="删除属性"
-                size="mini"
-              ></el-button>
+              <el-popconfirm
+                :title="`确定删除${row.attrName}吗？`"
+                @confirm="deleteAttr(row)"
+              >
+                <el-button
+                  slot="reference"
+                  type="danger"
+                  icon="el-icon-delete"
+                  title="删除属性"
+                  size="mini"
+                ></el-button>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
         <el-button type="primary">保存</el-button>
-        <el-button>取消</el-button>
+        <el-button>取消</el-button> 
       </div>
       <div v-show="!isShowList">
         <!-- 添加和修改的页面 -->
@@ -86,7 +92,7 @@
             <template slot-scope="{row,$index}">
               <el-popconfirm
                 :title="`确定删除${row.valueName}吗？`"
-                @onConfirm="deleteAttr(row)"
+                @confirm="attr.attrValueList.splice($index,1)"
               >
               <!-- @onConfirm="attr.attrValueList.splice($index, 1)" -->
               <!-- @onConfirm="console.log(1)" -->
@@ -135,7 +141,7 @@ export default {
     };
   },
   methods: {
-    async eleteAttr(row){
+    async deleteAttr(row){
       const result = await attrAPI.delete(row.id)
       if(result.code === 200){
         this.$message.success('删除属性成功')
