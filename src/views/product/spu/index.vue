@@ -6,7 +6,7 @@
 
     <el-card style="margin-top: 20px">
       <div v-show="index === 0">
-        <el-button type="primary" :disabled="!category3Id" @click="index = 1"
+        <el-button type="primary" :disabled="!category3Id" @click="addSpu"
           >添加SPU</el-button
         >
         <el-table :data="spuList" border>
@@ -27,7 +27,7 @@
                 size="mini"
               />
               <HintButton
-                @click="changeSpu(row)"
+                @click="updateSpu(row)"
                 title="修改SPU"
                 type="success"
                 icon="el-icon-edit"
@@ -165,7 +165,7 @@ export default {
       let skuListResultData = await sku.getListBySpuId(row.id)
       this.skuList = skuListResultData.data
     },
-    changeSpu(row) {
+    updateSpu(row) {
       this.spuId = row.id
       this.index = 1
       this.$refs.spuForm.initUpdateSpuInfo(row.id,this.category3Id)
@@ -177,6 +177,10 @@ export default {
       } else {
         this.getSpuList(this.page);
       }
+    },
+    addSpu() {
+      this.index = 1
+      this.$refs.spuForm.initAddSpuInfo(this.category3Id);
     }
   }
 };

@@ -5,7 +5,7 @@
         <img class="wyan-logo" :src="require('@/assets/images/wyan-logo.png')" :alt="App.title">
         {{ App.title }}
       </router-link>
-      <el-menu  :default-active="activeIndex" class="app-menu" mode="horizontal" router @select="handleSelect">
+      <el-menu  :default-active="activeIndex" class="app-menu" mode="horizontal" :router="true" @select="handleSelect">
         <template v-for="(nav, navIndex) in header">
           <!--<pre style="line-height:20px;">{{header}}</pre>-->
           <el-menu-item :popper-append-to-body="false" v-if="!nav.children" :key="nav.key" :path="nav.path" :index="navIndex">{{ nav.title }}</el-menu-item>

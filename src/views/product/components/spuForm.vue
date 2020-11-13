@@ -124,10 +124,10 @@ export default {
       dialogVisible: false,
       spuInfo: {
         category3Id: 0,
-        description: "string",
+        description: "",
         id: 0,
         tmId: 0,
-        spuName: "string",
+        spuName: "",
         spuImageList: [
           // {
           //   id: 0,
@@ -236,7 +236,7 @@ export default {
         this.spuImageList = templateImgList
       }
 
-      let trademarkListResultData = await trademark.getTrademarkListAll();
+      let trademarkListResultData = await trademark.getList();
 
       if (trademarkListResultData.code === 200) {
         this.trademarkList = trademarkListResultData.data;
@@ -245,6 +245,19 @@ export default {
       let baseSaleAttrListResultData = await spu.getBaseSaleAttrList();
       if (baseSaleAttrListResultData.code === 200) {
         this.baseSaleAttrList = baseSaleAttrListResultData.data;
+      }
+    },
+    async initAddSpuInfo(category3Id) {
+      this.category3Id = category3Id
+      // console.log('spuForm');
+      let trademarkList = await trademark.getList();
+      if (trademarkList.code === 200) {
+        this.trademarkList = trademarkList.data;
+      }
+
+      let baseSaleListInfo = await spu.getBaseSaleAttrList();
+      if (baseSaleListInfo.code === 200) {
+        this.baseSaleAttrList = baseSaleListInfo.data;
       }
     },
     handleClose() {

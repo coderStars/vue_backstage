@@ -12,7 +12,7 @@ const originReplace = Router.prototype.replace
 Router.prototype.push = function(location,onResolved,onRejected){
   if(onResolved === undefined && onRejected === undefined){
     //代表没有传递处理的回调无论是成功还是失败
-    return originPush.call(this,location).catch(() => {})
+    return originPush.call(this,location).catch(err => err)
   }else{
     return originPush.call(this,location,onResolved,onRejected)
   }

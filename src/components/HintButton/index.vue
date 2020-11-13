@@ -1,15 +1,15 @@
 <template>
-  <a href="javascript:;" :title="title">
-    <el-button v-bind="$attrs" v-on="$listeners"></el-button>
+  <a href="##" :title="title" style="margin-right:10px">
+    <el-button v-bind="$attrs" v-on="$listeners" />
   </a>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 export default {
   name: "HintButton",
   props: ["title"]
 };
 </script>
 
-<style>
+<style scoped lang='less'>
 </style>

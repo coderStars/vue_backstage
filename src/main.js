@@ -15,7 +15,8 @@ import '@/assets/fontawesome/css/font-awesome.min.css'
 
 
 import HintButton from '@/components/HintButton'
-
+Vue.component('HintButton',HintButton)
+  
 
 Vue.component('v-chart', ECharts)
 Vue.component('HintButton', HintButton)
