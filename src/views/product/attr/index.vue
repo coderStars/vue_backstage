@@ -53,8 +53,6 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-button type="primary">保存</el-button>
-        <el-button>取消</el-button> 
       </div>
       <div v-show="!isShowList">
         <!-- 添加和修改的页面 -->
